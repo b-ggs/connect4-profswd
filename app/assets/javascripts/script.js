@@ -246,19 +246,16 @@ function putCircle(col)
 {
 	row = getRowOfEmptyCell(col);
 	console.log("turnCount: " + turnCount);
-	if(turnCount > MAX_TURNS)
-	{
-		alert("Draw! No more possible moves.");
-		init();
-		location.reload();
-	}
-	else if(row > -1)
+	
+	if(row > -1)
 	{	
 		setCell(row, col, currentPlayer);
 		//printBoard();
 		modifyCellDesign(row, col);
 		if(!checkWinner(row, col))
+		{
 			switchPlayer();
+		}
 		else
 		{
 			alert("Winner: " + getPlayerColorName() + "!");
@@ -266,6 +263,12 @@ function putCircle(col)
 			location.reload();
 		}
 		turnCount++;
+		if(turnCount > MAX_TURNS && !checkWinner(row, col))
+		{
+			alert("Draw! No more possible moves.");
+			init();
+			location.reload();
+		}
 	}
 	else
 	{
