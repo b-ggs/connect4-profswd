@@ -3,7 +3,13 @@ var board;
 var MAX_ROWS = 6;
 var MAX_COLS = 7;
 var MAX_TURNS = 42;
+
+var BOOLEAN = 0;
+var INTEGER = 1;
+
 var turnCount;
+
+//START PVP
 
 function rowInit()
 {
@@ -53,6 +59,14 @@ function switchPlayer()
 	}
 }
 
+function oppositePlayer()
+{
+	if(currentPlayer == 1)
+		return 2;
+	else
+		return 1;
+}
+
 function getCell(row, col)
 {
 	return board.rows[row].cols[col];
@@ -82,7 +96,7 @@ function getRowOfEmptyCell(col)
 	return ret;
 };
 
-function checkHorizontal(row, col)
+function checkHorizontal(row, col, returnType, player)
 {
 	var i;
 	var count = 0;
@@ -90,7 +104,7 @@ function checkHorizontal(row, col)
 	//left
 	for(i = col; i >= 0; i--)
 	{
-		if(getCell(row, i) == currentPlayer)
+		if(getCell(row, i) == player)
 		{
 			count++;
 		}
@@ -98,13 +112,16 @@ function checkHorizontal(row, col)
 			break;
 		
 		if(count >= 4)
-			return true;
+			if(returnType == BOOLEAN)
+				return true;
+			else
+				return count;
 	}
 
 	//right
 	for(i = col + 1; i < MAX_COLS; i++)
 	{
-		if(getCell(row, i) == currentPlayer)
+		if(getCell(row, i) == player)
 		{
 			count++;
 		}
@@ -112,15 +129,21 @@ function checkHorizontal(row, col)
 			break;
 
 		if(count >= 4)
-			return true;
+			if(returnType == BOOLEAN)
+				return true;
+			else
+				return count;
 	}
 
-	console.log("checkHorizontal():" + count);
+	// console.log("checkHorizontal():" + count);
 
-	return false;
+	if(returnType == BOOLEAN)
+		return false;
+	else
+		return count;
 };
 
-function checkVertical(row, col)
+function checkVertical(row, col, returnType, player)
 {
 	var i;
 	var count = 0;
@@ -128,7 +151,7 @@ function checkVertical(row, col)
 	//down
 	for(i = row; i < MAX_ROWS; i++)
 	{
-		if(getCell(i, col) == currentPlayer)
+		if(getCell(i, col) == player)
 		{
 			count++;
 		}
@@ -136,14 +159,21 @@ function checkVertical(row, col)
 			break;
 
 		if(count >= 4)
-			return true;
+			if(returnType == BOOLEAN)
+				return true;
+			else
+				return count;
 	}
 
-	console.log("checkVertical():" + count);
-	return false;
+	// console.log("checkVertical():" + count);
+
+	if(returnType == BOOLEAN)
+		return false;
+	else
+		return count;
 };
 
-function checkDiagonalTLBR(row, col)
+function checkDiagonalTLBR(row, col, returnType, player)
 {
 	var i;
 	var count = 0;
@@ -154,7 +184,7 @@ function checkDiagonalTLBR(row, col)
 
 	while(row + i < MAX_ROWS && col + i < MAX_COLS)
 	{
-		if(getCell(row + i, col + i) == currentPlayer)
+		if(getCell(row + i, col + i) == player)
 		{
 			count++;
 		}
@@ -162,7 +192,10 @@ function checkDiagonalTLBR(row, col)
 			break;
 
 		if(count >= 4)
-			return true;
+			if(returnType == BOOLEAN)
+				return true;
+			else
+				return count;
 
 		i++;
 	}
@@ -173,7 +206,7 @@ function checkDiagonalTLBR(row, col)
 
 	while(row - i >= 0 && col - i >= 0)
 	{
-		if(getCell(row - i, col - i) == currentPlayer)
+		if(getCell(row - i, col - i) == player)
 		{
 			count++;
 		}
@@ -181,16 +214,23 @@ function checkDiagonalTLBR(row, col)
 			break;
 
 		if(count >= 4)
-			return true;
+			if(returnType == BOOLEAN)
+				return true;
+			else
+				return count;
 
 		i++;
 	}
 
-	console.log("checkDiagonalTLBR():" + count);
-	return false;
+	// console.log("checkDiagonalTLBR():" + count);
+
+	if(returnType == BOOLEAN)
+		return false;
+	else
+		return count;
 };
 
-function checkDiagonalTRBL(row, col)
+function checkDiagonalTRBL(row, col, returnType, player)
 {
 	var i;
 	var count = 0;
@@ -201,7 +241,7 @@ function checkDiagonalTRBL(row, col)
 
 	while(row + i < MAX_ROWS && col - i >= 0)
 	{
-		if(getCell(row + i, col - i) == currentPlayer)
+		if(getCell(row + i, col - i) == player)
 		{
 			count++;
 		}
@@ -209,7 +249,10 @@ function checkDiagonalTRBL(row, col)
 			break;
 
 		if(count >= 4)
-			return true;
+			if(returnType == BOOLEAN)
+				return true;
+			else
+				return count;
 
 		i++;
 	}
@@ -220,7 +263,7 @@ function checkDiagonalTRBL(row, col)
 
 	while(row - i >= 0 && col + i < MAX_COLS)
 	{
-		if(getCell(row - i, col + i) == currentPlayer)
+		if(getCell(row - i, col + i) == player)
 		{
 			count++;
 		}
@@ -228,24 +271,33 @@ function checkDiagonalTRBL(row, col)
 			break;
 
 		if(count >= 4)
-			return true;
+			if(returnType == BOOLEAN)
+				return true;
+			else
+				return count;
 
 		i++;
 	}
 
-	console.log("checkDiagonalTRBL():" + count);
-	return false;
+	// console.log("checkDiagonalTRBL():" + count);
+
+	if(returnType == BOOLEAN)
+		return false;
+	else
+		return count;
 };
 
 function checkWinner(row, col)
 {
-	return checkHorizontal(row, col) || checkVertical(row, col) || checkDiagonalTLBR(row, col) || checkDiagonalTRBL(row, col);
+	return checkHorizontal(row, col, BOOLEAN, currentPlayer) || checkVertical(row, col, BOOLEAN, currentPlayer) || checkDiagonalTLBR(row, col, BOOLEAN, currentPlayer) || checkDiagonalTRBL(row, col, BOOLEAN, currentPlayer);
 };
 
 function putCircle(col)
 {
 	row = getRowOfEmptyCell(col);
 	console.log("turnCount: " + turnCount);
+
+	console.log(currentPlayer + " putCircle: (" + row + ", " + col + ")");
 	
 	if(row > -1)
 	{	
@@ -268,12 +320,16 @@ function putCircle(col)
 			alert("Draw! No more possible moves.");
 			init();
 			location.reload();
+			return false;
 		}
 	}
 	else
 	{
 		alert("Invalid move: " + getPlayerColorName() + "!");
+		return false;
 	}
+
+	return true;
 };
 
 function getPlayerColor()
@@ -307,4 +363,156 @@ function modifyCellDesign(row, col)
 	$(selectCellElement(row, col)).css('transition', 'all 300ms ease-in');
 };
 
+//START PVC
+
 init();
+
+function putCircle_pvc(col)
+{
+	if(putCircle(col))
+		putCircle(aiThink());
+};
+
+function putCircle_cvc()
+{
+	var flag = putCircle(aiThink());
+
+	if(flag)
+		setTimeout(function(){putCircle_cvc();}, 500);
+}
+
+function aiThink()
+{
+	var selectedCols = [];
+	var selectedCol = -1;
+	var scores = [];
+	var row;
+	var col;
+	var i;
+
+	console.log("Start AI.");
+
+	for(col = 0; col < MAX_COLS; col++)
+	{
+		console.log("Evaluating column " + col + ".");
+		row = getRowOfEmptyCell(col);
+		if(row > -1)
+		{
+			var colScores = [];
+			var colScore = 0;
+
+			setCell(row, col, currentPlayer);
+
+			colScores.push(checkHorizontal(row, col, INTEGER, currentPlayer));
+			colScores.push(checkVertical(row, col, INTEGER, currentPlayer));
+			colScores.push(checkDiagonalTLBR(row, col, INTEGER, currentPlayer));
+			colScores.push(checkDiagonalTRBL(row, col, INTEGER, currentPlayer));
+
+			setCell(row, col, oppositePlayer());
+
+			colScores.push(checkHorizontal(row, col, INTEGER, oppositePlayer()));
+			colScores.push(checkVertical(row, col, INTEGER, oppositePlayer()));
+			colScores.push(checkDiagonalTLBR(row, col, INTEGER, oppositePlayer()));
+			colScores.push(checkDiagonalTRBL(row, col, INTEGER, oppositePlayer()));
+
+			console.log("Column " + col + " raw scores:" + colScores);
+
+			setCell(row, col, '0');
+
+			for(i = 0; i < colScores.length / 2; i++)
+			{
+				if(colScores[i] == 4)
+				{
+					colScores[i] *= 15000;
+					break;
+				}
+				else if(colScores[i] == 3)
+				{
+					colScores[i] *= 100;
+				}
+				else if(colScores[i] == 2)
+				{
+					colScores[i] *= 10;
+				}
+				else if(colScores[i] == 1)
+				{
+					colScores[i] *= 5;
+				}
+			}
+
+			for(i = colScores.length / 2; i < MAX_COLS; i++)
+			{
+				if(colScores[i] == 4)
+				{
+					colScores[i] *= 9000;
+					break;
+				}
+				else if(colScores[i] == 3)
+				{
+					colScores[i] *= 50;
+				}
+				else if(colScores[i] == 2)
+				{
+					colScores[i] *= 5;
+				}
+				else if(colScores[i] == 1)
+				{
+					colScores[i] *= 1;
+				}
+			}
+
+			for(i = 0; i < colScores.length; i++)
+				colScore += colScores[i];
+
+			console.log("Column " + col + " scores:" + colScores);
+			console.log("Column " + col + " score:" + colScore);
+
+			scores.push(colScore);
+		}
+		else
+		{
+			console.log("Column " + col + " skipped.");
+			scores.push(-1);
+		}
+	}
+
+	console.log("Scores: " + scores);
+
+	var max = 0;
+
+	for(i = 0; i < scores.length; i++)
+	{
+		if(scores[i] > max)
+		{
+			selectedCols = [];
+			max = scores[i];
+			selectedCols.push(i);
+		}
+		else if(scores[i] == max)
+		{
+			max = scores[i];
+			selectedCols.push(i);
+		}
+	}
+
+	console.log("Selected columns: " + selectedCols);
+
+	if(selectedCols.length > 1)
+	{
+		var index;
+
+		do
+		{
+			index = Math.floor(Math.random() * 10);
+		} while(index >= selectedCols.length);
+
+		console.log("Selected column: " + index + " with score " + max + ".");
+
+		return selectedCols[index];
+	}
+	else
+	{
+		console.log("Selected column: " + selectedCols[0] + " with score " + max + ".");
+		return selectedCols[0];
+	}
+}

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   root 'application#index'
+  get 'pvp' => 'pvp#index'
+  get 'pvc' => 'pvc#index'
+  get 'cvc' => 'cvc#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

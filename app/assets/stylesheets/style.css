@@ -6,6 +6,7 @@ body
 table
 {
 	margin: -5px;
+	margin-bottom: -2px;
 }
 
 td
@@ -83,6 +84,64 @@ td
 #buttonRow2 button:hover
 {
 	background-color: #e71840;
+	-webkit-transition-property: all 0ms ease-in;
+	-moz-transition-property: all 0ms ease-in;
+	-o-transition-property: all 0ms ease-in;
+	transition: all 0ms ease-in;
+}
+
+#buttonMenu
+{
+	margin-top: 5px;
+}
+
+#buttonMenu td
+{
+	/*border: 2px solid;
+	border-color: white;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+*/
+	border: 0px solid;
+	background-color: #212121;
+
+	width: 392px;
+	height: 47px;
+
+	-webkit-transition-property: all 300ms ease-in;
+	-moz-transition-property: all 300ms ease-in;
+	-o-transition-property: all 300ms ease-in;
+	transition: all 300ms ease-in;
+}
+
+#buttonMenu button
+{
+	/*border: 2px solid;*/
+	/*border-color: white;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;*/
+
+	border: #727272 0px solid;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+
+	background-color: #212121;
+
+	width: 392px;
+	height: 47px;
+
+	-webkit-transition-property: all 300ms ease-in;
+	-moz-transition-property: all 300ms ease-in;
+	-o-transition-property: all 300ms ease-in;
+	transition: all 300ms ease-in;
+}
+
+#buttonMenu button:hover
+{
+	background-color: #3c3c3c;
 	-webkit-transition-property: all 0ms ease-in;
 	-moz-transition-property: all 0ms ease-in;
 	-o-transition-property: all 0ms ease-in;

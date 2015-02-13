@@ -1,0 +1,2 @@
+class PvpController < ApplicationController
+end
