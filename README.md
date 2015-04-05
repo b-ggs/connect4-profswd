@@ -11,5 +11,5 @@ This was implemented using:
 - HTML5
 - CSS3
 - JavaScript
-- JQuery (https://jquery.com/)
+- jQuery (https://jquery.com/)
 - Ruby on Rails (http://rubyonrails.org)
