@@ -7,4 +7,9 @@ This implementation contains three modes:
 - Player vs. Computer, where one person can take on an AI, and
 - Computer vs. Computer, where two AIs attempt to beat each other in the game.
 
-This was implemented using HTML5, CSS3, JavaScript, and JQuery, and deployed on the Ruby on Rails platform.
+This was implemented using:
+- HTML5
+- CSS3
+- JavaScript
+- JQuery (https://jquery.com/)
+- Ruby on Rails (http://rubyonrails.org)
